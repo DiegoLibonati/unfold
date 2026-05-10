@@ -6,15 +6,6 @@ This project was created primarily for **educational and learning purposes**.
 While it is well-structured and could technically be used in production, it is **not intended for commercialization**.  
 The main goal is to explore and demonstrate best practices, patterns, and technologies in software development.
 
-## Getting Started
-
-1. Clone the repository
-2. Navigate to the project folder
-3. Execute: `npm install`
-4. Execute: `npm run dev`
-
-The application will open automatically at `http://localhost:3000`
-
 ## Description
 
 **Unfold** is a lightweight FAQ (Frequently Asked Questions) accordion component built entirely with vanilla TypeScript — no frameworks, no runtime dependencies. It renders a list of questions where each item can be expanded to reveal its answer. Only one question can be open at a time: clicking an open question collapses it, and clicking a different one automatically closes the current one before opening the new one.
@@ -33,6 +24,8 @@ The project includes a full test suite using Jest, Testing Library, and ts-jest,
 4. Vite
 
 ## Libraries used
+
+The project ships with zero runtime dependencies. All tooling lives in `devDependencies`:
 
 #### Dependencies
 
@@ -64,11 +57,33 @@ No production dependencies - Pure Vanilla TypeScript
 "vite": "^7.1.6"
 ```
 
-## Portfolio Link
+## Getting Started
 
-[`https://www.diegolibonati.com.ar/#/project/unfold`](https://www.diegolibonati.com.ar/#/project/unfold)
+To run the application locally:
+
+1. Clone the repository
+2. Navigate to the project folder
+3. Execute: `npm install`
+4. Execute: `npm run dev`
+
+The application will open automatically at `http://localhost:3000`.
+
+### Pre-Commit for Development
+
+Code quality is enforced automatically via a Husky pre-commit hook that runs `lint-staged` on staged files (ESLint + Prettier). The hook is installed automatically when you run `npm install`, so no extra setup is required.
+
+To run the checks manually:
+
+```bash
+npm run lint           # Check code style
+npm run lint:fix       # Auto-fix lint issues
+npm run format         # Format with Prettier
+npm run type-check     # TypeScript type-check only
+```
 
 ## Testing
+
+Once the project is set up, you can run the test suite (Jest + Testing Library + ts-jest):
 
 1. Navigate to the project folder
 2. Execute: `npm test`
@@ -79,9 +94,9 @@ For coverage report:
 npm run test:coverage
 ```
 
-## Security
+Coverage is enforced at 70% across branches, functions, lines, and statements.
 
-### npm audit
+## Security Audit
 
 Check for vulnerabilities in dependencies:
 
@@ -92,3 +107,7 @@ npm audit
 ## Known Issues
 
 None at the moment.
+
+## Portfolio Link
+
+[`https://www.diegolibonati.com.ar/#/project/unfold`](https://www.diegolibonati.com.ar/#/project/unfold)
