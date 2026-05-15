@@ -63,8 +63,9 @@ To run the application locally:
 
 1. Clone the repository
 2. Navigate to the project folder
-3. Execute: `npm install`
-4. Execute: `npm run dev`
+3. Ensure you have **Node.js >= 22** installed (see `.nvmrc`)
+4. Execute: `npm install`
+5. Execute: `npm run dev`
 
 The application will open automatically at `http://localhost:3000`.
 
@@ -103,6 +104,8 @@ Check for vulnerabilities in dependencies:
 ```bash
 npm audit
 ```
+
+[![CI](https://github.com/DiegoLibonati/Questions-Page/actions/workflows/ci.yml/badge.svg)](https://github.com/DiegoLibonati/Questions-Page/actions/workflows/ci.yml)
 
 ## Known Issues
 

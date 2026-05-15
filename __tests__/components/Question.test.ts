@@ -58,6 +58,13 @@ describe("Question", () => {
         screen.getByRole("button", { name: "Toggle answer" })
       ).toBeInTheDocument();
     });
+
+    it("should render the toggle button with '+' as its initial text", () => {
+      renderComponent();
+      expect(
+        screen.getByRole("button", { name: "Toggle answer" })
+      ).toHaveTextContent("+");
+    });
   });
 
   describe("behavior", () => {
