@@ -97,6 +97,54 @@ npm run test:coverage
 
 Coverage is enforced at 70% across branches, functions, lines, and statements.
 
+## Continuous Integration
+
+The repository ships with a **GitHub Actions** pipeline defined in [`.github/workflows/ci.yml`](.github/workflows/ci.yml). It runs automatically on every `push` and `pull_request` targeting the `main` branch.
+
+[![CI](https://github.com/DiegoLibonati/Questions-Page/actions/workflows/ci.yml/badge.svg)](https://github.com/DiegoLibonati/Questions-Page/actions/workflows/ci.yml)
+
+### Pipeline overview
+
+```
+                      ┌─── PR or push to main ───┐
+                      ▼                          ▼
+┌──────────────────────┐  ┌──────────────────┐  ┌──────────────────┐
+│    lint-and-audit    │─▶│     testing      │─▶│      build       │
+│   eslint · tsc       │  │      jest        │  │   tsc + vite     │
+└──────────────────────┘  └──────────────────┘  └──────────────────┘
+```
+
+### Validation jobs (run on every PR and push)
+
+1. **`lint-and-audit`** — installs Node.js from [`.nvmrc`](.nvmrc), runs `npm ci`, then `npm run lint` (ESLint) and `npm run type-check` (`tsc --noEmit`).
+2. **`testing`** — depends on `lint-and-audit`. Installs dependencies and runs the full Jest suite via `npm run test`.
+3. **`build`** — depends on `testing`. Installs dependencies and runs `npm run build` (`tsc` + `vite build`) to verify the project compiles to `dist/`.
+
+All jobs run on `ubuntu-latest` and reuse the Node version declared in [`.nvmrc`](.nvmrc), with the npm cache enabled via `actions/setup-node@v4`.
+
+### Where the build outputs live
+
+| Output                                    | Location                     |
+| ----------------------------------------- | ---------------------------- |
+| Validation logs (lint, type-check, tests) | **Actions** tab on GitHub    |
+| Build artifact (`dist/`)                  | Ephemeral, inside the runner |
+
+> **Note:** This pipeline only validates the code — it does not publish releases or deploy artifacts. The `dist/` folder produced by the `build` job is discarded when the runner shuts down.
+
+### Running the same checks locally
+
+```bash
+# lint-and-audit
+npm run lint
+npm run type-check
+
+# testing
+npm run test
+
+# build
+npm run build
+```
+
 ## Security Audit
 
 Check for vulnerabilities in dependencies:
@@ -104,8 +152,6 @@ Check for vulnerabilities in dependencies:
 ```bash
 npm audit
 ```
-
-[![CI](https://github.com/DiegoLibonati/Questions-Page/actions/workflows/ci.yml/badge.svg)](https://github.com/DiegoLibonati/Questions-Page/actions/workflows/ci.yml)
 
 ## Known Issues
 
